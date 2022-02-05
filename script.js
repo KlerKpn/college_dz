@@ -14,6 +14,7 @@ navList.forEach((el) => {
 const components = {
   // создаем шаблонные компоненты
   create(element, value, attrs) {
+    // components.input.create({ type: 'text', value: 'kek' })) // example
     const el = document.createElement(element)
     el.innerHTML = value
     attrs &&
@@ -45,7 +46,7 @@ const components = {
   },
 }
 
-// console.log(components.input.create({ type: 'text', value: 'kek' })) // example
+
 
 const values = {
   home: () => {
@@ -80,7 +81,10 @@ const values = {
   },
 }
 
+let current
 const redirect = (link) => {
-  container.innerHTML = '' // очищаем предыдущее содержимое
-  container.appendChild(values[link]()) // присваиваем новое отслеживая ссылку и вызываем функцию
+  current !== link && // проверка против повторного рендера
+    ((current = link),
+    (container.innerHTML = ''), // очищаем предыдущее содержимое
+    container.appendChild(values[link]())) // присваиваем новое отслеживая ссылку и вызываем функцию
 }
