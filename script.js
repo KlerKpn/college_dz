@@ -14,7 +14,7 @@ navList.forEach((el) => {
 const components = {
   // создаем шаблонные компоненты
   create(element, value, attrs) {
-    // components.input.create({ type: 'text', value: 'kek' })) // example
+    // components.input.create('button', "Кнопочка", {type: 'button})) // example
     const el = document.createElement(element)
     el.innerHTML = value
     attrs &&
@@ -45,8 +45,6 @@ const components = {
     return el
   },
 }
-
-
 
 const values = {
   home: () => {
