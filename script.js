@@ -16,10 +16,10 @@ const components = {
   create(element, value, attrs) {
     // components.input.create('button', "Кнопочка", {type: 'button})) // example
     const el = document.createElement(element)
-    el.innerHTML = value
+    value && (el.innerHTML = value)
     attrs &&
       Object.entries(attrs).forEach(([key, value]) =>
-        el.setAttribute(key, value),
+        el.setAttribute(key, value)
       )
     return el
   },
@@ -48,11 +48,27 @@ const components = {
 
 const values = {
   home: () => {
-    const main = components.create('h1', 'Home')
+    const main = components.create('div', '')
+    const title = components.create('h1', 'Home')
+    const subtitle = components.create('div', 'Пример текста', {
+      style: 'margin-top:10px;',
+    })
+    main.appendChild(title)
+    main.appendChild(subtitle)
     return main
   },
   about: () => {
-    const main = components.create('h1', 'About')
+    const main = components.create('div', '')
+    const title = components.create('h1', 'About')
+    const subtitle = components.create(
+      'div',
+      'Сочные картинки в корпоративных цветах, дополненные популярной сегодня абстракцией. Фотографии руководителей, много анимации, инфографики и крупной типографики. Рассказали ребята о себе все, но тезисно, а еще добавили кнопку отправки брифа, увеличив тем самым шансы роста конверсии. Продающая страница “О компании” сегодня? Примерно такая.',
+      {
+        style: 'margin-top:10px; max-width:300px;',
+      }
+    )
+    main.appendChild(title)
+    main.appendChild(subtitle)
     return main
   },
   form: () => {
@@ -69,13 +85,26 @@ const values = {
   live: () => {
     const play = '?autoplay=1'
     const main = components.create('iframe', '', {
-      // src: 'https://www.youtube.com/embed/PY8f1Z3nARo', live stream
-      src: `https://www.youtube.com/embed/Klt1EBFjt1g${play}`, // YT video require "embed"
+      src: `https://www.youtube.com/embed/PY8f1Z3nARo${play}`, // live stream
+      // src: `https://www.youtube.com/embed/Klt1EBFjt1g${play}`, // YT video require "embed"
       autoplay: true,
       frameborder: '0',
       allowfullscreen: true,
     })
     return main
+  },
+  contact: () => {
+    const list = [
+      'Телефон : 8-800-999-99-99',
+      'Директор : Иван Иванович',
+      'Адрес : г. Москва ул.Пушкина д.Калатушкина',
+    ]
+    const ul = components.create('ul')
+    list
+      .map((el) => components.create('li', el))
+      .forEach((element) => ul.appendChild(element))
+
+    return ul
   },
 }
 
